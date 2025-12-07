@@ -1,0 +1,265 @@
+{
+  "address": "4jZ5W4jnLTuycfTxREkNq4nQxQZfswHF2HEg4NNtGgDe",
+  "metadata": {
+    "name": "king_of_the_hill",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "claim_jackpot",
+      "discriminator": [
+        28,
+        214,
+        134,
+        248,
+        249,
+        81,
+        206,
+        198
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101,
+                  95,
+                  118,
+                  49
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "king",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101,
+                  95,
+                  118,
+                  49
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "start_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "usurp_throne",
+      "discriminator": [
+        102,
+        62,
+        72,
+        30,
+        48,
+        80,
+        48,
+        248
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101,
+                  95,
+                  118,
+                  49
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "new_king",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "previous_king",
+          "writable": true
+        },
+        {
+          "name": "creator",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GameState",
+      "discriminator": [
+        144,
+        94,
+        208,
+        172,
+        248,
+        99,
+        134,
+        120
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "NewKingEvent",
+      "discriminator": [
+        73,
+        235,
+        113,
+        69,
+        139,
+        120,
+        242,
+        255
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "GameEnded",
+      "msg": "The game has ended!"
+    },
+    {
+      "code": 6001,
+      "name": "GameNotOver",
+      "msg": "The game is not over yet!"
+    },
+    {
+      "code": 6002,
+      "name": "NotTheKing",
+      "msg": "You are not the King!"
+    },
+    {
+      "code": 6003,
+      "name": "WrongFeeOwner",
+      "msg": "Security Alert: Someone tried to redirect fees to the wrong wallet!"
+    }
+  ],
+  "types": [
+    {
+      "name": "GameState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "king",
+            "type": "pubkey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "end_timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "fee_owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NewKingEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "new_king",
+            "type": "pubkey"
+          },
+          {
+            "name": "previous_king",
+            "type": "pubkey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}
