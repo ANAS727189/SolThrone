@@ -153,8 +153,6 @@ export const useKingContract = () => {
 
  const fetchState = useCallback(async () => {
     if (!program) return;
-
-    // Rate Limit Protection (Cool down if we hit errors recently)
     const now = Date.now();
     if (now < nextRpcAttemptRef.current) return;
 
@@ -179,24 +177,20 @@ export const useKingContract = () => {
       setIsInitialized(true);
       setRpcError(null);
 
-      // B. Fetch History
-      // Only fetch history if 10 seconds have passed since last fetch to save RPC credits
+    
       const shouldRefreshHistory = now - lastHistoryFetchRef.current > 10000 || gameHistoryRef.current.length === 0;
 
       if (shouldRefreshHistory) {
         lastHistoryFetchRef.current = now;
 
         const signatures = await connection.getSignaturesForAddress(gamePda, {
-          limit: 5, // Reduced to 5 to be safe on Free Tier
+          limit: 5, 
         });
 
         if (signatures.length === 0) {
           setGameHistory([]);
           gameHistoryRef.current = [];
         } else {
-          
-          // --- FIX FOR 403 ERROR ---
-          // Instead of getParsedTransactions (Batch), we map and fetch individually
           const parsedTxs = await Promise.all(
             signatures.map(async (sig) => {
               try {
@@ -216,13 +210,10 @@ export const useKingContract = () => {
 
           parsedTxs.forEach((tx, i) => {
             if (!tx || !tx.meta || !tx.meta.logMessages) return;
-            
-            // Try to find the event
+
             for (const event of eventParser.parseLogs(tx.meta.logMessages)) {
               if (event.name === "NewKingEvent" || event.name === "newKingEvent") {
                 const data = event.data as Record<string, unknown>;
-                
-                // Robust data extraction (handles both case styles)
                 const newKingRaw = data["newKing"] ?? data["new_king"];
                 const priceRaw = data["price"];
                 const timestampRaw = data["timestamp"];
@@ -315,7 +306,6 @@ export const useKingContract = () => {
     };
   }, [program, fetchState, upsertHistory]);
 
-  // Poll for updates every 2 seconds (to see new kings instantly)
 
   useEffect(() => {
     if (program) {
@@ -337,8 +327,6 @@ export const useKingContract = () => {
         [Buffer.from("game_v1")],
         PROGRAM_ID
       );
-
-      // Start price: 0.1 SOL
 
       const startPrice = new anchor.BN(0.1 * LAMPORTS_PER_SOL);
 
@@ -413,8 +401,7 @@ export const useKingContract = () => {
 
         .rpc();
 
-      await fetchState(); // Refresh immediately
-
+      await fetchState(); 
       setRpcError(null);
     } catch (err) {
       console.error("Transaction failed:", err);
@@ -462,8 +449,7 @@ export const useKingContract = () => {
 
       alert("JACKPOT CLAIMED! 💰 Check your wallet.");
 
-      await fetchState(); // Refresh to see the new game start
-
+      await fetchState();
       setRpcError(null);
     } catch (err) {
       console.error("Claim failed:", err);

@@ -6,11 +6,10 @@ import confetti from "canvas-confetti";
 interface ThroneSceneProps {
   currentKing: string;
   price: number;
-  isCurrentUser: boolean; // We pass this to trigger celebration
+  isCurrentUser: boolean;
 }
 
 export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneSceneProps) => {
-  // Generate high-res pixel art
   const avatarUrl = `https://api.dicebear.com/7.x/pixel-art/svg?seed=${currentKing}&scale=120&radius=10`;
   const prevKingRef = useRef<string>(currentKing);
 
@@ -42,9 +41,7 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
     frame();
   }, []);
 
-  // --- CELEBRATION LOGIC ---
   useEffect(() => {
-    // Only trigger if the king CHANGED and it is NOW the current user
     if (prevKingRef.current !== currentKing && isCurrentUser) {
       triggerCelebration();
     }
@@ -53,16 +50,14 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
 
   return (
     <div className="relative w-full h-[600px] flex items-center justify-center perspective-1000">
-      
-      {/* --- ATMOSPHERE --- */}
+
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/40 via-transparent to-transparent blur-3xl" />
-      
-      {/* --- THE THRONE (CSS CONSTRUCTED) --- */}
+
       <div className="relative z-10 transform-style-3d scale-125 mt-20">
-        {/* Base Platform */}
+
         <div className="absolute top-32 left-1/2 -translate-x-1/2 w-80 h-12 bg-gray-900 rounded-lg border-t-4 border-yellow-600 shadow-[0_0_50px_rgba(234,179,8,0.2)]"></div>
         
-        {/* Throne Back (Glow) */}
+        {/* Throne Back*/}
         <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-48 h-80 bg-gradient-to-b from-gray-800 to-black border-2 border-yellow-500/50 rounded-t-2xl shadow-[0_0_30px_rgba(168,85,247,0.5)] flex flex-col items-center pt-4">
            <div className="w-32 h-64 bg-black/50 rounded-t-xl border border-purple-500/30 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent animate-pulse"></div>
@@ -74,14 +69,11 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
         <div className="absolute top-10 left-8 w-24 h-40 bg-gray-800 border-l-4 border-yellow-600 -skew-y-12 shadow-2xl"></div>
       </div>
 
-      {/* --- THE KING (ANIMATED) --- */}
       <div className="absolute z-20 top-[15%] left-1/2 -translate-x-1/2 w-64 h-64">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={currentKing}
             className="flex flex-col items-center relative"
-
-            // 1. ENTER: Fall from sky, heavy impact
             initial={{ y: -600, opacity: 0, scale: 1.5, rotate: -10 }}
             animate={{ 
               y: 0, 
@@ -95,8 +87,7 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
                 mass: 1.2 
               } 
             }}
-            
-            // 2. EXIT: Get YEETED violently to the right
+
             exit={{ 
               x: 1000, 
               y: -300, 
@@ -106,7 +97,6 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
               transition: { duration: 0.6, ease: "backIn" } 
             }}
           >
-            {/* CROWN (Floats) */}
             <motion.div 
               animate={{ y: [-5, 5, -5] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
@@ -115,7 +105,7 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser }: ThroneScenePr
               <Crown size={80} fill="#FFD700" stroke="#B8860B" strokeWidth={1.5} />
             </motion.div>
 
-            {/* AVATAR (Holographic Container) */}
+
             <div className="relative group w-56 h-56">
                 {/* Glow Ring */}
                 <div className="absolute -inset-4 bg-gradient-to-r from-yellow-500 to-purple-600 rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-pulse"></div>

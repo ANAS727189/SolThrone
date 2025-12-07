@@ -11,7 +11,6 @@ A high-stakes, blockchain-powered survival game where only the last monarch stan
 [![Anchor](https://img.shields.io/badge/Anchor-0.32.1-purple?style=for-the-badge)](https://www.anchor-lang.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 
-• [Documentation](#architecture)
 
 </div>
 

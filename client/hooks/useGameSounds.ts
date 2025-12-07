@@ -2,9 +2,9 @@ import { useCallback } from "react";
 
 export const useGameSounds = () => {
   const playUsurp = useCallback(() => {
-    const audio = new Audio("/sounds/slam.mp3"); // You need to put mp3s in public/sounds/
+    const audio = new Audio("/sounds/slam.mp3"); 
     audio.volume = 0.5;
-    audio.play().catch(() => {}); // Ignore auto-play errors
+    audio.play().catch(() => {}); 
   }, []);
 
   const playSuccess = useCallback(() => {
