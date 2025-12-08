@@ -11,13 +11,17 @@ import { ThroneScene } from "../components/ThroneScene";
 import { WalletContextProvider } from "../context/WalletContextProvider";
 import { useKingContract } from "../hooks/useKingContract";
 import { RulesModal } from "@/components/RulesModal";
+import { RoyalAtmosphere } from "@/components/game/RoyalAtmosphere";
+import { ChallengerAtmosphere } from "@/components/game/ChallengerAtmosphere";
 
 const GameContent = () => {
   const {
     gameState,
     gameHistory,
+    latestTaunt,
     usurpThrone,
     claimJackpot,
+    sendTaunt,
     initializeGame,
     isInitialized,
     loading,
@@ -96,9 +100,19 @@ const GameContent = () => {
         ></div>
       </div>
 
+      {/* --- ATMOSPHERE --- */}
+      {isCurrentKing ? <RoyalAtmosphere /> : <ChallengerAtmosphere />}
+
       {rpcError && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-red-600/20 border border-red-500/50 text-red-200 font-mono text-sm rounded-xl shadow-lg backdrop-blur-xl max-w-xl text-center">
           {rpcError}
+        </div>
+      )}
+
+      {!isCurrentKing && latestTaunt && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 px-8 py-4 bg-amber-600/20 border border-amber-500/50 text-amber-100 font-mono text-base rounded-xl shadow-lg backdrop-blur-xl max-w-2xl text-center">
+          <div className="text-xs text-amber-400 uppercase tracking-wider mb-1">The King Decrees:</div>
+          <div className="font-bold text-lg">"{latestTaunt}"</div>
         </div>
       )}
 
@@ -136,6 +150,7 @@ const GameContent = () => {
             loading={loading}
             claimJackpot={claimJackpot}
             usurpThrone={usurpThrone}
+            sendTaunt={sendTaunt}
             currentPrice={displayState.price}
           />
         </div>

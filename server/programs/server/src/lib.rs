@@ -13,7 +13,7 @@ pub mod king_of_the_hill {
         let game = &mut ctx.accounts.game;
         game.king = ctx.accounts.creator.key();
         game.price = start_price;
-        game.end_timestamp = Clock::get()?.unix_timestamp + 120; // 24 Hours
+        game.end_timestamp = Clock::get()?.unix_timestamp + 86400; // 24 Hours
         game.jackpot = 0;
         
         // SECURITY CRITICAL: Save your address here so no one can change it later

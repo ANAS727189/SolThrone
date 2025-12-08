@@ -36,7 +36,7 @@ export const ActivityLog = ({ history }: ActivityLogProps) => {
         <span>Recent Usurpations</span>
       </div>
       
-      <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-2">
+      <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-2 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <AnimatePresence initial={false}>
           {history.length === 0 ? (
             <div className="text-gray-600 text-xs text-center mt-10 font-mono opacity-50">
