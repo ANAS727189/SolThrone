@@ -99,28 +99,53 @@ export const ThroneScene = ({ currentKing, price, isCurrentUser, latestMessage }
 
       <div className="relative z-10 transform-style-3d scale-125 mt-20">
 
-        <div className="absolute top-32 left-1/2 -translate-x-1/2 w-80 h-12 bg-gray-900 rounded-lg border-t-4 border-yellow-600 shadow-[0_0_50px_rgba(234,179,8,0.2)]"></div>
+        {/* Base Platform */}
+        <div className={`absolute top-32 left-1/2 -translate-x-1/2 w-80 h-12 rounded-lg border-t-4 shadow-[0_0_50px_rgba(0,0,0,0.5)] ${isCurrentUser ? 'bg-yellow-900 border-yellow-500 shadow-yellow-500/20' : 'bg-gray-900 border-gray-700'}`}></div>
         
-        {/* Throne Back*/}
-        {(() => {
-          const tier = getThroneStyle(price);
-          return (
+        {/* Throne Structure */}
+        {isCurrentUser ? (
+            // --- KING'S THRONE (GOLD VAULT) ---
             <>
-              <div className={`absolute -top-48 left-1/2 -translate-x-1/2 w-48 h-80 border-2 rounded-t-2xl flex flex-col items-center pt-4 transition-all duration-500 ${tier.frame}`}>
-                <div className="w-32 h-64 bg-black/50 rounded-t-xl border border-purple-500/30 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent animate-pulse"></div>
-                </div>
+              {/* Backrest */}
+              <div className="absolute -top-52 left-1/2 -translate-x-1/2 w-60 h-80 bg-gradient-to-b from-yellow-500 via-yellow-700 to-yellow-900 rounded-t-full border-4 border-yellow-300 shadow-[0_0_80px_rgba(234,179,8,0.4)] flex flex-col items-center justify-start pt-6 overflow-hidden">
+                 {/* Inner Vault Pattern */}
+                 <div className="w-44 h-64 bg-yellow-950/50 rounded-t-full border border-yellow-400/30 relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,transparent_0%,#000_100%)]"></div>
+                    {/* Gold Bars Pattern */}
+                    <div className="w-full h-full opacity-20" style={{ backgroundImage: 'linear-gradient(135deg, #ffd700 25%, transparent 25%), linear-gradient(225deg, #ffd700 25%, transparent 25%), linear-gradient(45deg, #ffd700 25%, transparent 25%), linear-gradient(315deg, #ffd700 25%, transparent 25%)', backgroundSize: '20px 20px' }}></div>
+                 </div>
               </div>
 
-              {/* Arm Rests */}
-              <div className={`absolute top-10 -left-32 w-24 h-40 bg-gray-800 border-r-4 skew-y-12 shadow-2xl transition-all duration-500 ${tier.arm}`}></div>
-              <div className={`absolute top-10 left-8 w-24 h-40 bg-gray-800 border-l-4 -skew-y-12 shadow-2xl transition-all duration-500 ${tier.arm}`}></div>
-
-              {/* Glow Ring */}
-              <div className={`absolute -inset-4 bg-gradient-to-r ${tier.glow} rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-pulse`}></div>
+              {/* Arm Rests - Solid Gold Blocks */}
+              <div className="absolute top-12 -left-36 w-28 h-32 bg-gradient-to-br from-yellow-400 to-yellow-700 rounded-lg transform -skew-y-6 border-t-2 border-yellow-200 shadow-2xl"></div>
+              <div className="absolute top-12 left-8 w-28 h-32 bg-gradient-to-bl from-yellow-400 to-yellow-700 rounded-lg transform skew-y-6 border-t-2 border-yellow-200 shadow-2xl"></div>
+              
+              {/* Treasure Glow */}
+              <div className="absolute -inset-10 bg-yellow-500/10 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
             </>
-          );
-        })()}
+        ) : (
+            // --- CHALLENGER'S THRONE (IRON/STONE) ---
+            (() => {
+              const tier = getThroneStyle(price);
+              return (
+                <>
+                  {/* Backrest */}
+                  <div className={`absolute -top-48 left-1/2 -translate-x-1/2 w-48 h-80 border-2 rounded-t-sm flex flex-col items-center pt-4 transition-all duration-500 ${tier.frame}`}>
+                    <div className="w-32 h-64 bg-black/50 border border-white/5 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                    </div>
+                  </div>
+
+                  {/* Arm Rests */}
+                  <div className={`absolute top-10 -left-32 w-24 h-40 bg-gray-900 border-r-2 border-gray-700 skew-y-12 shadow-2xl transition-all duration-500 ${tier.arm}`}></div>
+                  <div className={`absolute top-10 left-8 w-24 h-40 bg-gray-900 border-l-2 border-gray-700 -skew-y-12 shadow-2xl transition-all duration-500 ${tier.arm}`}></div>
+
+                  {/* Glow Ring */}
+                  <div className={`absolute -inset-4 bg-gradient-to-r ${tier.glow} rounded-full blur-xl opacity-30 transition-opacity duration-500`}></div>
+                </>
+              );
+            })()
+        )}
       </div>
 
       <div className="absolute z-20 top-[15%] left-1/2 -translate-x-1/2 w-64 h-64">

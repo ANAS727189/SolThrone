@@ -85,7 +85,7 @@ const GameContent = () => {
   const truncatedKing = `${displayState.king.slice(0, 4)}…${displayState.king.slice(-4)}`;
 
   return (
-    <div className="min-h-screen bg-[#030304] text-white overflow-hidden font-sans selection:bg-amber-500/30">
+    <div className="min-h-screen bg-[#030304] text-white overflow-x-hidden font-sans selection:bg-amber-500/30">
       {/* --- CINEMATIC BACKGROUND --- */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-[#050505] to-[#000000]"></div>
@@ -124,7 +124,7 @@ const GameContent = () => {
 
       {isRulesOpen && <RulesModal onClose={() => setIsRulesOpen(false)} />}
 
-      <main className="relative z-10 flex flex-col md:flex-row h-screen items-center justify-center p-4 md:p-12 gap-8">
+      <main className="relative z-10 flex flex-col md:flex-row min-h-screen items-center justify-center p-4 pt-28 md:p-12 gap-8">
         <DataFeedPanel
           jackpot={displayState.jackpot}
           isCurrentKing={isCurrentKing}
@@ -135,7 +135,7 @@ const GameContent = () => {
           isContestLocked={isContestLocked}
         />
 
-        <div className="w-full md:w-2/4 h-full flex flex-col items-center justify-center relative">
+        <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative">
           <ThroneScene
             currentKing={displayState.king}
             price={displayState.price}

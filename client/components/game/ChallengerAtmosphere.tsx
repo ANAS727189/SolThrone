@@ -104,6 +104,13 @@ export const ChallengerAtmosphere = () => {
       <div className="absolute top-8 left-8 w-4 h-4 border-t border-l border-red-500/20" />
       <div className="absolute top-8 right-8 w-4 h-4 border-t border-r border-red-500/20" />
 
+      {/* 6. Watermark */}
+      <div className="absolute bottom-8 right-8 opacity-10 pointer-events-none">
+        <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-red-900 to-red-600 rotate-[-10deg] tracking-tighter select-none drop-shadow-lg">
+          CHALLENGE
+        </div>
+      </div>
+
     </div>
   );
 };

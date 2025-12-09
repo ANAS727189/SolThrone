@@ -11,6 +11,10 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 
 export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const endpoint = useMemo(() => {
+    if (process.env.NODE_ENV === "development") {
+      return clusterApiUrl("devnet");
+    }
+
     const envEndpoint = process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.trim();
     if (envEndpoint) return envEndpoint;
     return clusterApiUrl("devnet");

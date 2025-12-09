@@ -66,7 +66,7 @@ export function ControlPanel({
     }
 };
   return (
-    <div className="absolute bottom-12 w-full flex justify-center z-50">
+    <div className="relative mt-12 w-full flex justify-center z-50">
       {isContestLocked ? (
         isCurrentKing ? (
           <motion.button
