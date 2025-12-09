@@ -165,7 +165,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 **Links**
 
-- **GitHub**: [ANAS727189/SolFlux](https://github.com/ANAS727189/SolThrone)
+- **GitHub**: [ANAS727189/SolThrone](https://github.com/ANAS727189/SolThrone)
 
 ---
 
