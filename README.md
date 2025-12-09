@@ -29,6 +29,14 @@ A high-stakes, blockchain-powered survival game where only the last monarch stan
 
 ---
 
+## 📸 **Screenshots**
+
+| **King's View (Royal Atmosphere)** | **Challenger's View (The Forge)** |
+|:---:|:---:|
+| ![King View](client/public/sol-king.png) | ![Challenger View](client/public/sol-withoutking.png) |
+
+---
+
 ## ✨ **Features**
 
 ### 🎨 **Immersive UI/UX**
